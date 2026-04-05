@@ -1,5 +1,9 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://luidsonl.github.io/blog/'
 locale = 'en-us'
 title = 'My New Hugo Project'
 
 theme = 'rollback'
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
