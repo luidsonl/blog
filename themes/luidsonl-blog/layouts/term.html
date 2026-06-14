@@ -1,7 +1,30 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-  {{ end }}
+
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-1">
+      <a href="{{ .Parent.RelPermalink }}" class="text-sm text-slate-500 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
+        {{ .Parent.LinkTitle }}
+      </a>
+      <span class="text-slate-300 dark:text-slate-600">/</span>
+    </div>
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+      <span class="text-sky-500">#</span>{{ .Title }}
+    </h1>
+    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+      {{ len .Pages }} {{ if eq .Lang "en" }}post{{ if gt (len .Pages) 1 }}s{{ end }}{{ else }}post{{ if gt (len .Pages) 1 }}s{{ end }}{{ end }}
+    </p>
+  </div>
+
+  {{- if .Pages }}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {{- range .Pages }}
+        {{ partial "post-card.html" . }}
+      {{- end }}
+    </div>
+  {{- else }}
+    <p class="text-slate-500 dark:text-slate-400 text-center py-12">
+      {{ if eq .Lang "en" }}No posts with this tag.{{ else }}Nenhum post com essa tag.{{ end }}
+    </p>
+  {{- end }}
+
 {{ end }}

@@ -1,7 +1,29 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-  {{ end }}
+
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-white">{{ .Title }}</h1>
+    {{- with .Content }}
+      <div class="mt-2 text-slate-600 dark:text-slate-400 text-sm">{{ . }}</div>
+    {{- end }}
+  </div>
+
+  {{- if .Pages }}
+    <div class="flex flex-wrap gap-3">
+      {{- range .Pages }}
+        <a href="{{ .RelPermalink }}" class="group flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900/40 rounded-full border border-slate-200 dark:border-slate-700 hover:border-sky-400 dark:hover:border-sky-600 hover:bg-sky-50 dark:hover:bg-sky-950/30 transition-all duration-200">
+          <span class="text-sm font-semibold text-slate-700 dark:text-slate-300 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+            #{{ .LinkTitle }}
+          </span>
+          <span class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full px-2 py-0.5 font-medium">
+            {{ len .Pages }}
+          </span>
+        </a>
+      {{- end }}
+    </div>
+  {{- else }}
+    <p class="text-slate-500 dark:text-slate-400 text-center py-12">
+      {{ if eq .Lang "en" }}No tags found.{{ else }}Nenhuma tag encontrada.{{ end }}
+    </p>
+  {{- end }}
+
 {{ end }}

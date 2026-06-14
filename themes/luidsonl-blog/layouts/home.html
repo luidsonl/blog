@@ -1,9 +1,31 @@
 {{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
-    </section>
-  {{ end }}
+
+  {{- /* Hero / intro text from _index.md */}}
+  {{- with .Content }}
+    <div class="mb-8 p-6 bg-gradient-to-r from-sky-50 to-indigo-50 dark:from-sky-950/30 dark:to-indigo-950/30 rounded-xl border border-sky-100 dark:border-sky-900/50 text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+      {{ . }}
+    </div>
+  {{- end }}
+
+  {{- /* Latest Posts Heading */}}
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+      {{ if eq .Lang "en" }}Latest Posts{{ else }}Últimos Posts{{ end }}
+    </h2>
+  </div>
+
+  {{- /* Posts Grid */}}
+  {{- $posts := where site.RegularPages "Section" "posts" }}
+  {{- if $posts }}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {{- range $posts }}
+        {{ partial "post-card.html" . }}
+      {{- end }}
+    </div>
+  {{- else }}
+    <p class="text-slate-500 dark:text-slate-400 text-center py-12">
+      {{ if eq .Lang "en" }}No posts yet. Check back soon!{{ else }}Nenhum post ainda. Volte em breve!{{ end }}
+    </p>
+  {{- end }}
+
 {{ end }}

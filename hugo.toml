@@ -1,9 +1,53 @@
 baseURL = 'https://luidsonl.github.io/blog/'
-locale = 'en-us'
-title = 'My New Hugo Project'
-
 theme = 'luidsonl-blog'
+
+defaultContentLanguage = 'pt-br'
+defaultContentLanguageInSubdir = false
+
+[build]
+  writeStats = true
 
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
+
+[languages]
+  [languages.pt-br]
+    languageCode = 'pt-BR'
+    languageName = 'Português'
+    title = 'Blog do Luidson'
+    weight = 1
+
+    [languages.pt-br.menus]
+      [[languages.pt-br.menus.main]]
+        name = 'Início'
+        pageRef = '/'
+        weight = 10
+      [[languages.pt-br.menus.main]]
+        name = 'Posts'
+        pageRef = '/posts'
+        weight = 20
+      [[languages.pt-br.menus.main]]
+        name = 'Tags'
+        pageRef = '/tags'
+        weight = 30
+
+  [languages.en]
+    languageCode = 'en-US'
+    languageName = 'English'
+    title = "Luidson's Blog"
+    weight = 2
+
+    [languages.en.menus]
+      [[languages.en.menus.main]]
+        name = 'Home'
+        pageRef = '/'
+        weight = 10
+      [[languages.en.menus.main]]
+        name = 'Posts'
+        pageRef = '/posts'
+        weight = 20
+      [[languages.en.menus.main]]
+        name = 'Tags'
+        pageRef = '/tags'
+        weight = 30

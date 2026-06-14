@@ -1,0 +1,55 @@
+<div class="space-y-6">
+
+  <!-- About Me Widget -->
+  <div class="p-6 bg-white dark:bg-slate-900/40 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+    <div class="relative w-20 h-20 mx-auto mb-4">
+      <div class="w-full h-full rounded-full bg-gradient-to-tr from-sky-400 to-blue-600 flex items-center justify-center text-white text-2xl font-bold border border-slate-200 dark:border-slate-700 shadow-sm">
+        L
+      </div>
+    </div>
+    <h3 class="text-base font-bold text-slate-850 dark:text-slate-100">Luidson</h3>
+    <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+      {{ if eq .Lang "en" }}
+        Software developer sharing thoughts on technology, programming, and styling.
+      {{ else }}
+        Desenvolvedor de software compartilhando pensamentos sobre tecnologia, programação e estilização.
+      {{ end }}
+    </p>
+  </div>
+
+  <!-- Recent Posts Widget -->
+  <div class="p-6 bg-white dark:bg-slate-900/40 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+    <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">
+      {{ if eq .Lang "en" }}Recent Posts{{ else }}Posts Recentes{{ end }}
+    </h3>
+    <ul class="space-y-4">
+      {{ range first 3 (where site.RegularPages "Section" "posts") }}
+        <li class="group">
+          <a href="{{ .RelPermalink }}" class="text-sm font-semibold text-slate-700 dark:text-slate-300 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors duration-200">
+            {{ .LinkTitle }}
+          </a>
+          <div class="text-[11px] text-slate-400 dark:text-slate-550 mt-1">
+            {{ .Date | time.Format ":date_medium" }}
+          </div>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+
+  <!-- Tags Widget -->
+  {{ if isset site.Taxonomies "tags" }}
+    {{ if not (eq (len site.Taxonomies.tags) 0) }}
+      <div class="p-6 bg-white dark:bg-slate-900/40 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+        <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">Tags</h3>
+        <div class="flex flex-wrap gap-2">
+          {{ range $name, $taxonomy := site.Taxonomies.tags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}/" class="text-xs px-2.5 py-1.5 rounded-full font-medium bg-slate-105 text-slate-800 dark:bg-slate-800 dark:text-slate-200 hover:bg-sky-600 hover:text-white dark:hover:bg-sky-600 dark:hover:text-white transition duration-200">
+              #{{ $name }}
+            </a>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+  {{ end }}
+
+</div>
