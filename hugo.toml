@@ -35,7 +35,7 @@ defaultContentLanguageInSubdir = false
   [languages.en]
     languageCode = 'en-US'
     languageName = 'English'
-    title = "Luidson's Blog"
+    title = "Blog"
     weight = 2
 
     [languages.en.menus]

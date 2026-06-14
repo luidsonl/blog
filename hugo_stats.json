@@ -4,7 +4,6 @@
       "a",
       "article",
       "body",
-      "button",
       "circle",
       "div",
       "footer",
@@ -112,7 +111,6 @@
       "h-5",
       "h-7",
       "h-full",
-      "hidden",
       "hover:bg-gray-400",
       "hover:bg-sky-100",
       "hover:bg-sky-50",
@@ -156,7 +154,6 @@
       "mx-auto",
       "object-cover",
       "overflow-hidden",
-      "p-2",
       "p-5",
       "p-6",
       "prose",
@@ -175,7 +172,6 @@
       "py-8",
       "relative",
       "rounded-full",
-      "rounded-lg",
       "rounded-md",
       "rounded-xl",
       "shadow-lg",
@@ -225,10 +221,6 @@
       "w-full",
       "z-40"
     ],
-    "ids": [
-      "icon-moon",
-      "icon-sun",
-      "theme-toggle"
-    ]
+    "ids": null
   }
 }

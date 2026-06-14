@@ -9,14 +9,21 @@
   {{ $isEn := eq .Lang "en" }}
   {{ $targetURL := "" }}
   {{ if .IsTranslated }}
+    {{/* Hugo knows the translated page — use its permalink directly */}}
     {{ range .Translations }}
       {{ $targetURL = .RelPermalink }}
     {{ end }}
   {{ else }}
+    {{/* Derive the URL by manipulating the current path.
+         site.Home.RelPermalink = "/blog/" in prod, "/" in plain dev. */}}
+    {{ $current := .RelPermalink }}
+    {{ $base := site.Home.RelPermalink }}
     {{ if $isEn }}
-      {{ $targetURL = "/" | relLangURL }}
+      {{/* EN → PT-BR: /blog/en/posts/post-3/ → /blog/posts/post-3/ */}}
+      {{ $targetURL = strings.Replace $current "/en/" "/" 1 }}
     {{ else }}
-      {{ $targetURL = "/en/" | relURL }}
+      {{/* PT-BR → EN: /blog/posts/post-3/ → /blog/en/posts/post-3/ */}}
+      {{ $targetURL = strings.Replace $current $base (printf "%sen/" $base) 1 }}
     {{ end }}
   {{ end }}
   <div class="flex mt-4 justify-center">
