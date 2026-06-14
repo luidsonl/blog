@@ -5,48 +5,7 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- Language Switcher Bar -->
-  {{ $isEn := eq .Lang "en" }}
-  {{ $targetURL := "" }}
-  {{ if .IsTranslated }}
-    {{/* Hugo knows the translated page — use its permalink directly */}}
-    {{ range .Translations }}
-      {{ $targetURL = .RelPermalink }}
-    {{ end }}
-  {{ else }}
-    {{/* Derive the URL by manipulating the current path.
-         site.Home.RelPermalink = "/blog/" in prod, "/" in plain dev. */}}
-    {{ $current := .RelPermalink }}
-    {{ $base := site.Home.RelPermalink }}
-    {{ if $isEn }}
-      {{/* EN → PT-BR: /blog/en/posts/post-3/ → /blog/posts/post-3/ */}}
-      {{ $targetURL = strings.Replace $current "/en/" "/" 1 }}
-    {{ else }}
-      {{/* PT-BR → EN: /blog/posts/post-3/ → /blog/en/posts/post-3/ */}}
-      {{ $targetURL = strings.Replace $current $base (printf "%sen/" $base) 1 }}
-    {{ end }}
-  {{ end }}
-  <div class="flex mt-4 justify-center">
-    <div class="flex justify-end max-w-6xl gap-5 mx-5 container">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe h-5 w-5 text-gray-600 dark:text-gray-400" aria-hidden="true">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-        <path d="M2 12h20"></path>
-      </svg>
-      <div class="flex items-center gap-2">
-        <span class="text-sm font-medium {{ if not $isEn }}text-blue-600 dark:text-blue-400{{ else }}text-gray-500 dark:text-gray-400{{ end }}">PT-BR</span>
-        <a href="{{ $targetURL }}" class="relative inline-flex h-7 w-12 items-center rounded-full bg-gray-300 dark:bg-gray-700 transition-colors hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer" role="switch" aria-checked="{{ if $isEn }}true{{ else }}false{{ end }}">
-          <span class="inline-block h-5 w-5 transform rounded-full bg-white dark:bg-gray-200 shadow-lg transition-all duration-200 {{ if $isEn }}translate-x-6{{ else }}translate-x-1{{ end }}"></span>
-        </a>
-        <span class="text-sm font-medium {{ if $isEn }}text-blue-600 dark:text-blue-400{{ else }}text-gray-500 dark:text-gray-400{{ end }}">EN</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Header -->
-  <header class="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 sticky top-0 z-40">
-    {{ partial "header.html" . }}
-  </header>
+  {{ partial "top-bar.html" . }}
 
   <!-- Main Container -->
   <div class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
