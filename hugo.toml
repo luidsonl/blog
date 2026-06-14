@@ -2,7 +2,7 @@ baseURL = 'https://luidsonl.github.io/blog/'
 locale = 'en-us'
 title = 'My New Hugo Project'
 
-theme = 'rollback'
+theme = 'luidsonl-blog'
 
 [caches]
   [caches.images]
