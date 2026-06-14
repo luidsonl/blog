@@ -15,7 +15,7 @@ defaultContentLanguageInSubdir = false
   [languages.pt-br]
     languageCode = 'pt-BR'
     languageName = 'Português'
-    title = 'Blog do Luidson'
+    title = 'Blog'
     weight = 1
 
     [languages.pt-br.menus]
