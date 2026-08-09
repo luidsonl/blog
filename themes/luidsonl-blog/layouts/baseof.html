@@ -19,5 +19,8 @@
     {{ partial "footer.html" . }}
   </footer>
 
+  {{ if .Page.Store.Get "has-code-playground" }}
+  <script src="{{ "js/code-playground-react.js" | relURL }}"></script>
+  {{ end }}
 </body>
 </html>
