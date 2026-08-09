@@ -3,18 +3,10 @@
 
 {{/* Language Switcher Bar */}}
 {{ $isEn := eq .Lang "en" }}
-{{ $targetURL := "" }}
-{{ if .IsTranslated }}
-  {{ range .Translations }}
-    {{ $targetURL = .RelPermalink }}
-  {{ end }}
-{{ else }}
-  {{ $current := .RelPermalink }}
-  {{ $base := site.Home.RelPermalink }}
-  {{ if $isEn }}
-    {{ $targetURL = strings.Replace $current "/en/" "/" 1 }}
-  {{ else }}
-    {{ $targetURL = strings.Replace $current $base (printf "%sen/" $base) 1 }}
+{{ $target := site.Home }}
+{{ range site.Sites }}
+  {{ if ne .Language.Lang site.Language.Lang }}
+    {{ $target = .Home }}
   {{ end }}
 {{ end }}
 <div class="flex mt-4 justify-center">
@@ -26,7 +18,7 @@
     </svg>
     <div class="flex items-center gap-2">
       <span class="text-sm font-medium {{ if not $isEn }}text-blue-600 dark:text-blue-400{{ else }}text-gray-500 dark:text-gray-400{{ end }}">PT-BR</span>
-      <a href="{{ $targetURL }}" class="relative inline-flex h-7 w-12 items-center rounded-full bg-gray-300 dark:bg-gray-700 transition-colors hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer" role="switch" aria-checked="{{ if $isEn }}true{{ else }}false{{ end }}">
+      <a href="{{ $target.RelPermalink }}" class="relative inline-flex h-7 w-12 items-center rounded-full bg-gray-300 dark:bg-gray-700 transition-colors hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer" role="switch" aria-checked="{{ if $isEn }}true{{ else }}false{{ end }}">
         <span class="inline-block h-5 w-5 transform rounded-full bg-white dark:bg-gray-200 shadow-lg transition-all duration-200 {{ if $isEn }}translate-x-6{{ else }}translate-x-1{{ end }}"></span>
       </a>
       <span class="text-sm font-medium {{ if $isEn }}text-blue-600 dark:text-blue-400{{ else }}text-gray-500 dark:text-gray-400{{ end }}">EN</span>
