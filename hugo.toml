@@ -33,7 +33,7 @@ defaultContentLanguageInSubdir = false
         weight = 30
 
     [languages.pt-br.params]
-      description = 'Blog do Luidson | Desenvolvimento de software'
+      description = 'Blog do Luidson | Desenvolvimento de Software'
 
   [languages.en]
     languageCode = 'en-US'
