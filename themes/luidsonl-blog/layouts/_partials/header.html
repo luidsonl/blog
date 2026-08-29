@@ -1,7 +1,10 @@
 {{- $header := .Site.GetPage "/_header" }}
 {{- $basePath := (urls.Parse site.BaseURL).Path | default "/" | strings.TrimSuffix "/" }}
 {{- $logoLink := $header.Params.link | default site.BaseURL }}
-{{- if (strings.HasPrefix $logoLink "/") }}{{ $logoLink = printf "%s%s" $basePath $logoLink }}{{ end }}
+{{- if (strings.HasPrefix $logoLink "/") }}
+  {{- $logoLink = printf "%s%s%s" $basePath site.LanguagePrefix $logoLink }}
+{{- end }}
+{{- if eq $logoLink $basePath }}{{ $logoLink = printf "%s/" $basePath }}{{ end }}
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
   <!-- Logo / Site Title -->
   <a href="{{ $logoLink }}" class="text-xl font-bold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200 shrink-0">

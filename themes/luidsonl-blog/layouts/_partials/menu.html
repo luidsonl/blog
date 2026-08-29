@@ -27,12 +27,13 @@ Renders a menu for the given menu ID.
     {{- $name := (.name | default .Name) }}
     {{- $url := (.url | default .URL) }}
     {{- $href := printf "%s%s" $basePath $url }}
-    {{- if and (ne $basePath "") (eq $url "/") }}{{ $href = printf "%s/" $basePath }}{{ end }}
+    {{- if eq $url "/" }}{{ $href = printf "%s/" $basePath }}{{ end }}
     {{- $attrs := dict "href" $href }}
     {{- $isActive := false }}
     {{- $rel := $page.RelPermalink | strings.TrimSuffix "/" }}
     {{- $targetRel := "" }}
-    {{- with $page.GetPage $url }}{{ $targetRel = .RelPermalink | strings.TrimSuffix "/" }}{{ end }}
+    {{- $lookup := strings.TrimPrefix site.LanguagePrefix $url }}
+    {{- with site.GetPage $lookup }}{{ $targetRel = .RelPermalink | strings.TrimSuffix "/" }}{{ end }}
     {{- if and $targetRel (eq $rel $targetRel) }}
       {{- $isActive = true }}
       {{- $attrs = merge $attrs (dict "aria-current" "page") }}
