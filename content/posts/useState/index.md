@@ -2,6 +2,7 @@
 date = '2026-07-18T11:26:33-03:00'
 draft = false
 title = 'Como Usar useState'
+description = 'Aprenda a usar o useState, o hook mais fundamental do React, para gerenciar estado em componentes com exemplos práticos.'
 tags = ['react', 'hooks']
 +++
 

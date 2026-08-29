@@ -15,7 +15,7 @@ defaultContentLanguageInSubdir = false
   [languages.pt-br]
     languageCode = 'pt-BR'
     languageName = 'Português'
-    title = 'Blog'
+    title = 'Blog do Luidson | Desenvolvimento de Software'
     weight = 1
 
     [languages.pt-br.menus]
@@ -32,10 +32,13 @@ defaultContentLanguageInSubdir = false
         pageRef = '/tags'
         weight = 30
 
+    [languages.pt-br.params]
+      description = 'Blog do Luidson | Desenvolvimento de software'
+
   [languages.en]
     languageCode = 'en-US'
     languageName = 'English'
-    title = "Blog"
+    title = "Luidson's Blog | Software Development"
     weight = 2
 
     [languages.en.menus]
@@ -51,3 +54,6 @@ defaultContentLanguageInSubdir = false
         name = 'Tags'
         pageRef = '/tags'
         weight = 30
+
+    [languages.en.params]
+      description = "Luidson's Blog | Software Development"

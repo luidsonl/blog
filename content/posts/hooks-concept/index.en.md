@@ -2,6 +2,7 @@
 date = '2026-07-11T15:52:41-03:00'
 draft = false
 title = 'The Concept of Hooks'
+description = 'Understand the concept of hooks in software development, comparing WordPress Action and Filter Hooks with React hooks.'
 tags = ['react', 'wordpress', 'hooks']
 +++
 
