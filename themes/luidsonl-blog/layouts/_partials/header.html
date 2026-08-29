@@ -1,10 +1,14 @@
+{{- $header := .Site.GetPage "/_header" }}
+{{- $basePath := (urls.Parse site.BaseURL).Path | default "/" | strings.TrimSuffix "/" }}
+{{- $logoLink := $header.Params.link | default site.BaseURL }}
+{{- if (strings.HasPrefix $logoLink "/") }}{{ $logoLink = printf "%s%s" $basePath $logoLink }}{{ end }}
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
-  <!-- Site Title -->
-  <a href="{{ site.BaseURL }}" class="text-xl font-bold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200 shrink-0">
-    {{ site.Title }}
+  <!-- Logo / Site Title -->
+  <a href="{{ $logoLink }}" class="text-xl font-bold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200 shrink-0">
+    {{ with $header }}{{ .Title }}{{ else }}{{ site.Title }}{{ end }}
   </a>
 
   <!-- Navigation Menu -->
-  {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+  {{ partial "menu.html" (dict "menuID" "main" "page" . "entries" ($header.Params.menu)) }}
 
 </div>

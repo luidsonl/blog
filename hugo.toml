@@ -15,7 +15,7 @@ defaultContentLanguageInSubdir = false
   [languages.pt-br]
     languageCode = 'pt-BR'
     languageName = 'Português'
-    title = 'Blog do Luidson | Desenvolvimento de Software'
+    title = 'Blog'
     weight = 1
 
     [languages.pt-br.menus]
@@ -38,7 +38,7 @@ defaultContentLanguageInSubdir = false
   [languages.en]
     languageCode = 'en-US'
     languageName = 'English'
-    title = "Luidson's Blog | Software Development"
+    title = "Blog"
     weight = 2
 
     [languages.en.menus]

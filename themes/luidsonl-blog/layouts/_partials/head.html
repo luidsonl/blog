@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+<title>{{ if .IsHome }}{{ site.Params.description | default site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 <meta name="description" content="{{ .Description | default .Summary | default site.Params.description | truncate 160 "" }}">
 <link rel="icon" href="{{ "images/favicon.ico" | relURL }}" type="image/x-icon">
 <link rel="shortcut icon" href="{{ "images/favicon.ico" | relURL }}" type="image/x-icon">

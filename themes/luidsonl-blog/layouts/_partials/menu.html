@@ -3,14 +3,16 @@ Renders a menu for the given menu ID.
 
 @context {page} page The current page.
 @context {string} menuID The menu ID.
+@context {[]map} entries Optional menu entries (from content), overriding site.Menus.
 
 @example: {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
 */}}
 
 {{- $page := .page }}
 {{- $menuID := .menuID }}
+{{- $entries := .entries | default (index site.Menus $menuID) }}
 
-{{- with index site.Menus $menuID }}
+{{- with $entries }}
   <nav aria-label="Main navigation">
     <ul class="flex items-center gap-1 flex-wrap">
       {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
@@ -20,20 +22,22 @@ Renders a menu for the given menu ID.
 
 {{- define "_partials/inline/menu/walk.html" }}
   {{- $page := .page }}
+  {{- $basePath := (urls.Parse site.BaseURL).Path | default "/" | strings.TrimSuffix "/" }}
   {{- range .menuEntries }}
-    {{- $attrs := dict "href" .URL }}
+    {{- $name := (.name | default .Name) }}
+    {{- $url := (.url | default .URL) }}
+    {{- $href := printf "%s%s" $basePath $url }}
+    {{- if and (ne $basePath "") (eq $url "/") }}{{ $href = printf "%s/" $basePath }}{{ end }}
+    {{- $attrs := dict "href" $href }}
     {{- $isActive := false }}
-    {{- if $page.IsMenuCurrent .Menu . }}
+    {{- $rel := $page.RelPermalink | strings.TrimSuffix "/" }}
+    {{- $targetRel := "" }}
+    {{- with $page.GetPage $url }}{{ $targetRel = .RelPermalink | strings.TrimSuffix "/" }}{{ end }}
+    {{- if and $targetRel (eq $rel $targetRel) }}
       {{- $isActive = true }}
       {{- $attrs = merge $attrs (dict "aria-current" "page") }}
-    {{- else if $page.HasMenuCurrent .Menu . }}
+    {{- else if and $targetRel (ne $targetRel (site.Home.RelPermalink | strings.TrimSuffix "/")) (hasPrefix $rel $targetRel) }}
       {{- $attrs = merge $attrs (dict "aria-current" "true") }}
-    {{- end }}
-    {{- $name := .Name }}
-    {{- with .Identifier }}
-      {{- with T . }}
-        {{- $name = . }}
-      {{- end }}
     {{- end }}
     <li>
       <a
@@ -44,7 +48,8 @@ Renders a menu for the given menu ID.
         {{- end }}
         class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 {{ if $isActive }}bg-sky-50 text-sky-600 dark:bg-sky-950/50 dark:text-sky-400{{ else }}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white{{ end }}"
       >{{ $name }}</a>
-      {{- with .Children }}
+      {{- $children := .Children | default .children }}
+      {{- with $children }}
         <ul class="flex items-center gap-1">
           {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
         </ul>
