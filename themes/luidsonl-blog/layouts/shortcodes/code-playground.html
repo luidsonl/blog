@@ -1,6 +1,7 @@
 {{- $theme := default "dark" (.Get "theme") -}}
 {{- $lang := default "tsx" (.Get "lang") -}}
 {{- $code := .Get "code" -}}
+{{- $height := .Get "height" -}}
 
 {{- if not (.Page.Store.Get "has-code-playground") -}}
   {{- .Page.Store.Set "has-code-playground" true -}}
@@ -9,6 +10,7 @@
 <code-playground-react
   {{ with $theme }}theme="{{ . }}"{{ end }}
   {{ with $lang }}lang="{{ . }}"{{ end }}
+  {{ with $height }}height="{{ . }}"{{ end }}
   {{ with $code }}code="{{ . }}"{{ end }}>
   {{- if .Inner -}}
     <script type="text/plain">{{ .Inner }}</script>
