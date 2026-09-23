@@ -4,7 +4,7 @@
 {{/* Language Switcher Bar */}}
 {{ $isEn := eq .Lang "en" }}
 {{ $target := site.Home }}
-{{ range site.Sites }}
+{{ range hugo.Sites }}
   {{ if ne .Language.Lang site.Language.Lang }}
     {{ $target = .Home }}
   {{ end }}

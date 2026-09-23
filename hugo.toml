@@ -13,8 +13,8 @@ defaultContentLanguageInSubdir = false
 
 [languages]
   [languages.pt-br]
-    languageCode = 'pt-BR'
-    languageName = 'Português'
+    locale = 'pt-BR'
+    label = 'Português'
     title = 'Blog'
     weight = 1
 
@@ -36,8 +36,8 @@ defaultContentLanguageInSubdir = false
       description = 'Blog do Luidson | Desenvolvimento de Software'
 
   [languages.en]
-    languageCode = 'en-US'
-    languageName = 'English'
+    locale = 'en-US'
+    label = 'English'
     title = "Blog"
     weight = 2
 
