@@ -9,6 +9,7 @@
       "code",
       "code-playground-react",
       "div",
+      "em",
       "footer",
       "h1",
       "h2",
@@ -241,6 +242,7 @@
       "conclusion",
       "conclusão",
       "efeitos-colaterais",
+      "examples",
       "exemplos",
       "filter-hooks",
       "notes",
@@ -256,7 +258,10 @@
       "react",
       "retorno",
       "return-value",
+      "side-effects",
+      "the-component-lifecycle-in-react",
       "the-concept-of-state",
+      "what-is-useeffect",
       "what-is-usestate",
       "wordpress"
     ]

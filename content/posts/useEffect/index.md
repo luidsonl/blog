@@ -6,9 +6,9 @@ title = 'Como usar useEffect'
 
 ## O que é UseEffect?
 
-Imagine que você está programado uma interface web que consome dados fora do seu front end. Talvez de uma API.
+Imagine que você está programando uma interface web que consome dados fora do seu front end. Talvez de uma API.
 
-Ai você chega no seguinte pensamento:
+Aí você chega ao seguinte pensamento:
 
 > Quero guardar um valor e atualizar a interface quando ele mudar.
 
@@ -16,7 +16,7 @@ Ai você chega no seguinte pensamento:
 
 ## Efeitos colaterais
 
-Uma função tem um efeito colateral, quando além de, por exemplo, calcular um valor, ela causa alguma mudança ou interação fora do próprio cálculo. O useEffect é um hook que representa o efeito colateral causado pela renderização ou por mudanças nas dependências do componente.
+Uma função tem um efeito colateral quando, além de, por exemplo, calcular um valor, ela causa alguma mudança ou interação fora do próprio cálculo. O useEffect é um hook que representa o efeito colateral causado pela renderização ou por mudanças nas dependências do componente.
 
 ## Parâmetros
 
@@ -33,7 +33,7 @@ Ele recebe 2 parâmetros:
 
 ## Retorno
 
-Diferente do useState, o useEffect não tem um retorno, mas a função passada como parâmetro nele pode retornar
+Diferente do useState, o useEffect não tem um retorno, mas a função passada como parâmetro pode retornar
 uma função de limpeza.
 
 ```jsx
@@ -50,7 +50,7 @@ useEffect(() => {
 
 Este código cria um `timer` que executa um console.log("oi") a cada 1 segundo enquanto o componente estiver montado. Quando o componente desmonta, a função de limpeza `clearInterval(timer)` é chamada, encerrando o timer.
 
-## O ciclo de vida dos componentes do react
+## O ciclo de vida dos componentes do React
 
 Podemos simplificar o ciclo de vida do componente React em 3 fases:
 
@@ -64,7 +64,7 @@ Podemos simplificar o ciclo de vida do componente React em 3 fases:
 
 Para componentes de classe, podemos acessar esses métodos dentro do ciclo de vida.
 
-Para componentes funcionais, conseguimos gerenciar esse ciclo de vida a partir do hook `useEffect`
+Para componentes funcionais, conseguimos gerenciar esse ciclo de vida a partir do hook `useEffect`.
 
 ### componentDidMount
 
@@ -115,7 +115,7 @@ useEffect(() => {
   console.log('contador mudou');
 }, [contador]);
 ```
-Neste caso ele executa quando o valor do contador mudar
+Neste caso, ele executa quando o valor do contador muda.
 
 
 
@@ -265,6 +265,6 @@ export default Demo;
 
 {{< /code-playground >}}
 
-Neste exemplo, o `setSaudacoes` é passado como prop para o componente `digaOi`. O useEffect cria um timer ao ser montado que cria uma nova saudação a cada segundo. Ao ser desmontado, esse timer é limpo. Experimente remover o `clearInterval`. Um bug curioso causará a criação de novos timers sem limpar o timer ao desmontar o componente.
+Neste exemplo, o `setSaudacoes` é passado como prop para o componente `DigaOi`. O useEffect cria um timer ao ser montado que cria uma nova saudação a cada segundo. Ao ser desmontado, esse timer é limpo. Experimente remover o `clearInterval`. Um bug curioso causará a criação de novos timers sem limpar o timer ao desmontar o componente.
 
 
