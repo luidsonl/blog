@@ -1,7 +1,7 @@
 +++
 date = '2026-09-23T18:45:18-03:00'
 draft = false
-title = 'How to use useEffect'
+title = 'How to Use useEffect'
 description = 'Learn how to use useEffect, the React hook for running side effects, with lifecycle comparisons and practical examples.'
 tags = ['react', 'hooks']
 +++
