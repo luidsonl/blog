@@ -41,30 +41,28 @@ Retorna um objeto com a propriedade `current`, onde podemos acessar e modificar 
 import {useRef, useState} from 'react'
 
 function Contador(){
-    const contadorRef = useRef(0)
-    const [contadorState, setContadorState] = useState(0)
+  const contadorRef = useRef(0)
+  const [contadorState, setContadorState] = useState(0)
 
-    function incrementRef(){
-        contadorRef.current = contadorRef.current + 1
-    }
-    function incrementState(){
-        setContadorState(p=>p + 1)
-    }
-    
-    return(
+  function incrementRef(){
+    contadorRef.current = contadorRef.current + 1
+  }
+  function incrementState(){
+    setContadorState(p=>p + 1)
+  }
+
+  return(
+    <div>
       <div>
-        <div>
-          <h1>Contador useRef: {contadorRef.current}</h1>
-          <button onClick={incrementRef}>Incrementar</button>
-        </div>
-        <div>
-          <h1>Contador useState: {contadorState}</h1>
-          <button onClick={incrementState}>Incrementar</button>
-        </div>
+        <h1>Contador useRef: {contadorRef.current}</h1>
+        <button onClick={incrementRef}>Incrementar</button>
       </div>
-
-        
-    )
+      <div>
+        <h1>Contador useState: {contadorState}</h1>
+        <button onClick={incrementState}>Incrementar</button>
+      </div>
+    </div>
+  )
 }
 
 export default Contador;
@@ -77,24 +75,22 @@ export default Contador;
 import {useRef, useState} from 'react'
 
 function Contador(){
-    const render = useRef(0)
-    const [contador, setContador] = useState(0)
+  const render = useRef(0)
+  const [contador, setContador] = useState(0)
 
-    render.current++
+  render.current++
 
-    function incrementar(){
-        setContador(p=>p + 1)
-    }
-    
-    return(
-      <div>
+  function incrementar(){
+    setContador(p=>p + 1)
+  }
+
+  return(
+    <div>
       <h1>Renderizações: {render.current}</h1>
-          <h1>Contador useState: {contador}</h1>
-          <button onClick={incrementar}>Incrementar</button>
-      </div>
-
-        
-    )
+      <h1>Contador useState: {contador}</h1>
+      <button onClick={incrementar}>Incrementar</button>
+    </div>
+  )
 }
 
 export default Contador;
@@ -107,31 +103,31 @@ export default Contador;
 import { useRef } from 'react';
 
 function Arrastavel() {
-    const caixa = useRef(null);
+  const caixa = useRef(null);
 
-    function arrastar(e) {
-        caixa.current.style.left = `${e.clientX}px`;
-        caixa.current.style.top = `${e.clientY}px`;
-    }
+  function arrastar(e) {
+    caixa.current.style.left = `${e.clientX}px`;
+    caixa.current.style.top = `${e.clientY}px`;
+  }
 
-    return (
-        <div
-            onMouseMove={arrastar}
-            style={{ width: '100vw', height: '100vh' }}
-        >
-            <div
-                ref={caixa}
-                style={{
-                    position: 'absolute',
-                    left: 100,
-                    top: 100,
-                    width: 100,
-                    height: 100,
-                    background: 'blue'
-                }}
-            />
-        </div>
-    );
+  return (
+    <div
+      onMouseMove={arrastar}
+      style={{ width: '100vw', height: '100vh' }}
+    >
+      <div
+        ref={caixa}
+        style={{
+          position: 'absolute',
+          left: 100,
+          top: 100,
+          width: 100,
+          height: 100,
+          background: 'blue'
+        }}
+      />
+    </div>
+  );
 }
 
 export default Arrastavel;

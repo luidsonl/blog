@@ -41,30 +41,28 @@ It returns an object with the `current` property, where we can access and modify
 import {useRef, useState} from 'react'
 
 function Counter(){
-    const counterRef = useRef(0)
-    const [counterState, setCounterState] = useState(0)
+  const counterRef = useRef(0)
+  const [counterState, setCounterState] = useState(0)
 
-    function incrementRef(){
-        counterRef.current = counterRef.current + 1
-    }
-    function incrementState(){
-        setCounterState(p=>p + 1)
-    }
-    
-    return(
+  function incrementRef(){
+    counterRef.current = counterRef.current + 1
+  }
+  function incrementState(){
+    setCounterState(p=>p + 1)
+  }
+
+  return(
+    <div>
       <div>
-        <div>
-          <h1>useRef counter: {counterRef.current}</h1>
-          <button onClick={incrementRef}>Increment</button>
-        </div>
-        <div>
-          <h1>useState counter: {counterState}</h1>
-          <button onClick={incrementState}>Increment</button>
-        </div>
+        <h1>useRef counter: {counterRef.current}</h1>
+        <button onClick={incrementRef}>Increment</button>
       </div>
-
-        
-    )
+      <div>
+        <h1>useState counter: {counterState}</h1>
+        <button onClick={incrementState}>Increment</button>
+      </div>
+    </div>
+  )
 }
 
 export default Counter;
@@ -77,24 +75,22 @@ export default Counter;
 import {useRef, useState} from 'react'
 
 function Counter(){
-    const render = useRef(0)
-    const [count, setCount] = useState(0)
+  const render = useRef(0)
+  const [count, setCount] = useState(0)
 
-    render.current++
+  render.current++
 
-    function increment(){
-        setCount(p=>p + 1)
-    }
-    
-    return(
-      <div>
+  function increment(){
+    setCount(p=>p + 1)
+  }
+
+  return(
+    <div>
       <h1>Renders: {render.current}</h1>
-          <h1>useState counter: {count}</h1>
-          <button onClick={increment}>Increment</button>
-      </div>
-
-        
-    )
+      <h1>useState counter: {count}</h1>
+      <button onClick={increment}>Increment</button>
+    </div>
+  )
 }
 
 export default Counter;
@@ -107,31 +103,31 @@ export default Counter;
 import { useRef } from 'react';
 
 function Draggable() {
-    const box = useRef(null);
+  const box = useRef(null);
 
-    function drag(e) {
-        box.current.style.left = `${e.clientX}px`;
-        box.current.style.top = `${e.clientY}px`;
-    }
+  function drag(e) {
+    box.current.style.left = `${e.clientX}px`;
+    box.current.style.top = `${e.clientY}px`;
+  }
 
-    return (
-        <div
-            onMouseMove={drag}
-            style={{ width: '100vw', height: '100vh' }}
-        >
-            <div
-                ref={box}
-                style={{
-                    position: 'absolute',
-                    left: 100,
-                    top: 100,
-                    width: 100,
-                    height: 100,
-                    background: 'blue'
-                }}
-            />
-        </div>
-    );
+  return (
+    <div
+      onMouseMove={drag}
+      style={{ width: '100vw', height: '100vh' }}
+    >
+      <div
+        ref={box}
+        style={{
+          position: 'absolute',
+          left: 100,
+          top: 100,
+          width: 100,
+          height: 100,
+          background: 'blue'
+        }}
+      />
+    </div>
+  );
 }
 
 export default Draggable;

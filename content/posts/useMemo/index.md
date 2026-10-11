@@ -46,74 +46,74 @@ O `useMemo` retorna o mesmo valor devolvido pela função passada como primeiro 
 import { useMemo, useState, useRef } from "react";
 
 function fibonacciLento(n) {
-    return n < 2 ? n : fibonacciLento(n - 1) + fibonacciLento(n - 2);
+  return n < 2 ? n : fibonacciLento(n - 1) + fibonacciLento(n - 2);
 }
 
 function FibonacciMemo({ counter }) {
-    const [num, setNum] = useState(30);
-    const chamadas = useRef(0);
+  const [num, setNum] = useState(30);
+  const chamadas = useRef(0);
 
-    const resultado = useMemo(() => {
-        chamadas.current += 1;
-        return fibonacciLento(num);
-    }, [num]);
+  const resultado = useMemo(() => {
+    chamadas.current += 1;
+    return fibonacciLento(num);
+  }, [num]);
 
-    return (
-        <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
-            <h2>Com useMemo</h2>
-            <p>{chamadas.current} cálculos</p>
-            <p>{counter} renderizações do pai</p>
-            <h2>Fibonacci de {num} é <span style={{ color: "green" }}>{resultado}</span></h2>
-            <input
-                value={num}
-                onChange={(e) => setNum(Number(e.target.value))}
-                style={{ width: "100%" }}
-                type="number"
-                min="0"
-                max="40"
-            />
-        </div>
-    );
+  return (
+    <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
+      <h2>Com useMemo</h2>
+      <p>{chamadas.current} cálculos</p>
+      <p>{counter} renderizações do pai</p>
+      <h2>Fibonacci de {num} é <span style={{ color: "green" }}>{resultado}</span></h2>
+      <input
+        value={num}
+        onChange={(e) => setNum(Number(e.target.value))}
+        style={{ width: "100%" }}
+        type="number"
+        min="0"
+        max="40"
+      />
+    </div>
+  );
 }
 
 function FibonacciNoMemo({ counter }) {
-    const [num, setNum] = useState(30);
-    const chamadas = useRef(0);
+  const [num, setNum] = useState(30);
+  const chamadas = useRef(0);
 
-    chamadas.current += 1;
-    const resultado = fibonacciLento(num);
+  chamadas.current += 1;
+  const resultado = fibonacciLento(num);
 
-    return (
-        <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
-            <h2>Sem useMemo</h2>
-            <p>{chamadas.current} cálculos</p>
-            <p>{counter} renderizações do pai</p>
-            <h2>Fibonacci de {num} é <span style={{ color: "red" }}>{resultado}</span></h2>
-            <input
-                value={num}
-                onChange={(e) => setNum(Number(e.target.value))}
-                style={{ width: "100%" }}
-                type="number"
-                min="0"
-                max="40"
-            />
-        </div>
-    );
+  return (
+    <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
+      <h2>Sem useMemo</h2>
+      <p>{chamadas.current} cálculos</p>
+      <p>{counter} renderizações do pai</p>
+      <h2>Fibonacci de {num} é <span style={{ color: "red" }}>{resultado}</span></h2>
+      <input
+        value={num}
+        onChange={(e) => setNum(Number(e.target.value))}
+        style={{ width: "100%" }}
+        type="number"
+        min="0"
+        max="40"
+      />
+    </div>
+  );
 }
 
 export default function Demo() {
-    const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(0);
 
-    return (
-        <div>
-            <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
-                <h2>Contador: {counter}</h2>
-                <button onClick={() => setCounter((c) => c + 1)}>Incrementar</button>
-            </div>
-            <FibonacciMemo counter={counter} />
-            <FibonacciNoMemo counter={counter} />
-        </div>
-    );
+  return (
+    <div>
+      <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
+        <h2>Contador: {counter}</h2>
+        <button onClick={() => setCounter((c) => c + 1)}>Incrementar</button>
+      </div>
+      <FibonacciMemo counter={counter} />
+      <FibonacciNoMemo counter={counter} />
+    </div>
+  );
 }
 {{< /code-playground >}}
 

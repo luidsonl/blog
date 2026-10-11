@@ -46,74 +46,74 @@ The first parameter is a function with no arguments, whose return value will be 
 import { useMemo, useState, useRef } from "react";
 
 function slowFibonacci(n) {
-    return n < 2 ? n : slowFibonacci(n - 1) + slowFibonacci(n - 2);
+  return n < 2 ? n : slowFibonacci(n - 1) + slowFibonacci(n - 2);
 }
 
 function FibonacciWithMemo({ counter }) {
-    const [num, setNum] = useState(30);
-    const calls = useRef(0);
+  const [num, setNum] = useState(30);
+  const calls = useRef(0);
 
-    const result = useMemo(() => {
-        calls.current += 1;
-        return slowFibonacci(num);
-    }, [num]);
+  const result = useMemo(() => {
+    calls.current += 1;
+    return slowFibonacci(num);
+  }, [num]);
 
-    return (
-        <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
-            <h2>With useMemo</h2>
-            <p>{calls.current} calculations</p>
-            <p>{counter} parent renders</p>
-            <h2>Fibonacci of {num} is <span style={{ color: "green" }}>{result}</span></h2>
-            <input
-                value={num}
-                onChange={(e) => setNum(Number(e.target.value))}
-                style={{ width: "100%" }}
-                type="number"
-                min="0"
-                max="40"
-            />
-        </div>
-    );
+  return (
+    <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
+      <h2>With useMemo</h2>
+      <p>{calls.current} calculations</p>
+      <p>{counter} parent renders</p>
+      <h2>Fibonacci of {num} is <span style={{ color: "green" }}>{result}</span></h2>
+      <input
+        value={num}
+        onChange={(e) => setNum(Number(e.target.value))}
+        style={{ width: "100%" }}
+        type="number"
+        min="0"
+        max="40"
+      />
+    </div>
+  );
 }
 
 function FibonacciWithoutMemo({ counter }) {
-    const [num, setNum] = useState(30);
-    const calls = useRef(0);
+  const [num, setNum] = useState(30);
+  const calls = useRef(0);
 
-    calls.current += 1;
-    const result = slowFibonacci(num);
+  calls.current += 1;
+  const result = slowFibonacci(num);
 
-    return (
-        <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
-            <h2>Without useMemo</h2>
-            <p>{calls.current} calculations</p>
-            <p>{counter} parent renders</p>
-            <h2>Fibonacci of {num} is <span style={{ color: "red" }}>{result}</span></h2>
-            <input
-                value={num}
-                onChange={(e) => setNum(Number(e.target.value))}
-                style={{ width: "100%" }}
-                type="number"
-                min="0"
-                max="40"
-            />
-        </div>
-    );
+  return (
+    <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
+      <h2>Without useMemo</h2>
+      <p>{calls.current} calculations</p>
+      <p>{counter} parent renders</p>
+      <h2>Fibonacci of {num} is <span style={{ color: "red" }}>{result}</span></h2>
+      <input
+        value={num}
+        onChange={(e) => setNum(Number(e.target.value))}
+        style={{ width: "100%" }}
+        type="number"
+        min="0"
+        max="40"
+      />
+    </div>
+  );
 }
 
 export default function Demo() {
-    const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(0);
 
-    return (
-        <div>
-            <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
-                <h2>Counter: {counter}</h2>
-                <button onClick={() => setCounter((c) => c + 1)}>Increment</button>
-            </div>
-            <FibonacciWithMemo counter={counter} />
-            <FibonacciWithoutMemo counter={counter} />
-        </div>
-    );
+  return (
+    <div>
+      <div style={{ border: "1px solid black", borderRadius: 20, padding: 20 }}>
+        <h2>Counter: {counter}</h2>
+        <button onClick={() => setCounter((c) => c + 1)}>Increment</button>
+      </div>
+      <FibonacciWithMemo counter={counter} />
+      <FibonacciWithoutMemo counter={counter} />
+    </div>
+  );
 }
 {{< /code-playground >}}
 
