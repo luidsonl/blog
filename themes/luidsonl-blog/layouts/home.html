@@ -7,6 +7,64 @@
     </div>
   {{- end }}
 
+  {{- /* Build posts list (current language), newest first */}}
+  {{- $posts := where site.RegularPages "Section" "posts" }}
+  {{- $posts = where $posts "Lang" .Lang }}
+  {{- $posts = sort $posts "Date" "desc" }}
+
+  {{- /* Featured post: from front matter param "featured", or fallback to latest */}}
+  {{- $featured := false }}
+  {{- with .Params.featured }}
+    {{- $featured = site.GetPage . }}
+  {{- end }}
+  {{- if and (not $featured) (gt (len $posts) 0) }}
+    {{- $featured = index $posts 0 }}
+  {{- end }}
+
+  {{- if $featured }}
+    {{- /* Featured banner */}}
+    <section class="mb-16">
+      <p class="text-xs font-semibold uppercase tracking-wider text-sky-600 dark:text-sky-400 mb-3">
+        {{ if eq .Lang "en" }}Featured post{{ else }}Post em destaque{{ end }}
+      </p>
+      <a href="{{ $featured.RelPermalink }}" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40 shadow-sm hover:shadow-md transition-shadow">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          {{- $img := $featured.Resources.GetMatch "*.{jpg,jpeg,png,webp,gif}" }}
+          {{- if $img }}
+            <div class="aspect-video md:aspect-auto md:min-h-[280px] overflow-hidden">
+              <img src="{{ ($img.Fill "960x540 Center").RelPermalink }}" alt="{{ $featured.Title }}" class="w-full h-full object-cover" loading="lazy">
+            </div>
+          {{- else }}
+            <div class="aspect-video md:aspect-auto md:min-h-[280px] bg-slate-100 dark:bg-slate-800/60 flex items-center justify-center px-6 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-700">
+              <span class="text-slate-500 dark:text-slate-400 font-semibold text-xl text-center">{{ $featured.Title }}</span>
+            </div>
+          {{- end }}
+          <div class="p-6 md:p-8 flex flex-col justify-center">
+            <time datetime="{{ $featured.Date | time.Format "2006-01-02" }}" class="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1.5 mb-3">
+              <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              {{ $featured.Date | time.Format ":date_medium" }}
+            </time>
+            {{- with $featured.GetTerms "tags" }}
+              <div class="flex flex-wrap gap-1.5 mb-3">
+                {{- range first 3 . }}
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400 font-semibold">#{{ .LinkTitle }}</span>
+                {{- end }}
+              </div>
+            {{- end }}
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white leading-tight mb-3">{{ $featured.Title }}</h2>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">{{ $featured.Summary | plainify | truncate 200 "…" }}</p>
+            <div class="mt-5 flex items-center gap-2 text-sm font-semibold text-sky-600 dark:text-sky-400">
+              {{ if eq .Lang "en" }}Read featured post{{ else }}Ler post em destaque{{ end }}
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+    </section>
+  {{- end }}
+
   {{- /* Latest Posts Heading */}}
   <div class="flex items-center justify-between mb-6">
     <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
@@ -14,12 +72,13 @@
     </h2>
   </div>
 
-  {{- /* Posts Grid */}}
-  {{- $posts := where site.RegularPages "Section" "posts" }}
+  {{- /* Posts Grid (exclude featured to avoid duplicate?) show all or rest */}}
   {{- if $posts }}
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {{- range $posts }}
-        {{ partial "post-card.html" . }}
+        {{- if or (not $featured) (ne .RelPermalink $featured.RelPermalink) }}
+          {{ partial "post-card.html" . }}
+        {{- end }}
       {{- end }}
     </div>
   {{- else }}
