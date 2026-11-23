@@ -5,4 +5,3 @@ draft = false
 description = 'Artigos e tutoriais sobre desenvolvimento de software.'
 +++
 
-Um blog simples para compartilhar conhecimento.
